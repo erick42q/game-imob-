@@ -1,14 +1,17 @@
+from cmath import polar
 from desafio.game import Players, Propriedades
 
+players = [
+    Players("inpulsivo"),
+    Players("exigente"),
+    Players("cauteloso"),
+    Players("aleatório"),
+]
 
-player_inpulsivo = Players(tipo="inpulsivo")
-player_exigente = Players(tipo="exigente")
-player_cauteloso = Players(tipo="cauteloso")
-player_aleatório = Players(tipo="aleatório")
+propriedades = []
 
 
-propriedades = Propriedades()
+print(players[2])
 
-print(vars(player_inpulsivo))
 
 
