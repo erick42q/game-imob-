@@ -25,30 +25,38 @@ match = Match([ player for player in players])
 print(match.show_players())
 
 
-for id_round in range(10):
+for id_round in range(100):
     print(f"-----------------")
     print(f"round: {id_round}")
 
 
     for player in match.players:
-        
         propriedade = propriedades[player.casa_atual]
 
-        match.roll_dice(player)
+        steps = match.roll_dice()
+
+        casa_anterior = player.casa_atual
+
+        msg=player.andar_casas(steps)
+        print(
+            f'''{player.tipo} id: {player.id}: 
+            dado: {steps} 
+            casa anterior:  {casa_anterior}
+            {msg if msg is not None else ''}
+            casa atual: {player.casa_atual}
+            propriedades: {player.prop_owned(propriedades)}
+            saldo: {player.saldo}
+            '''
+        )
+
         match.transaction(player, propriedade)
-        player.pagar(30)
         match.game_over(player)
         if match.winner():
             break
 
     if match.winner():
         winner = match.players[0]
-        print(f"------------------")
-        print(f"O GANHADOR É O {winner.tipo}")
-        print(f'''
-            saldo: {winner.saldo}
-            total de propriedades: {[count for count, prop in enumerate(propriedades) if prop.owner == winner]}
-            ''')
+        match.victory_announce(winner, propriedades)
 
 
 
