@@ -1,5 +1,5 @@
 from os import remove
-from random import  randint, randrange
+from random import  randint, randrange, getrandbits
 from dataclasses import dataclass, field
 
 
@@ -31,6 +31,10 @@ class Player:
         
         return props
 
+    def buy_prop(self, propriedade: dataclass):
+        self.pagar(propriedade.valor_venda)
+        propriedade.owner = self
+        print(f"player {self.tipo} comprou a propriedade")    
         
 
 @dataclass
@@ -59,11 +63,25 @@ class Match:
         if propriedade.owner and propriedade.owner != player:
             player.pagar(propriedade.valor_aluguel)
             return
-        if player.saldo >= propriedade.valor_venda:
-            player.pagar(propriedade.valor_venda)
-            propriedade.owner = player
-            print(f"player {player.tipo} comprou a propriedade")    
         
+        if player.saldo >= propriedade.valor_venda:
+            if player.tipo == 'inpulsivo':
+                player.buy_prop(propriedade)
+
+            elif player.tipo == 'exigente' and propriedade.valor_aluguel > 50:
+                player.buy_prop(propriedade)
+                
+            elif player.tipo == 'cauteloso' and (player.saldo - propriedade.valor_venda) >= 80 :
+                player.buy_prop(propriedade)
+
+            elif player.tipo == 'aleatório':
+                if bool(getrandbits(1)):
+                    player.buy_prop(propriedade)
+
+                else:
+                    print(f"{player.tipo} não quis comprar a propriedade")
+
+
         print(propriedade)
 
     def game_over(self, player:dataclass):
