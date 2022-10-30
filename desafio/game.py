@@ -15,7 +15,7 @@ class Player:
         if self.casa_atual+dado <= 19:
             self.casa_atual += dado
         else:
-            self.casa_atual -= 19
+            self.casa_atual -= 20
             self.saldo += 100
             self.casa_atual += dado
             return "Volta no tabuleiro!!!"
@@ -23,6 +23,13 @@ class Player:
     def pagar(self, valor):
         self.saldo -= valor
 
+    def prop_owned(self, propriedades: list):
+        props = []
+        for count, prop in enumerate(propriedades):
+            if prop.owner == self:
+                props.append(count)
+        
+        return props
 
         
 
@@ -33,8 +40,9 @@ class Propriedade:
     owner: Player = None
 
     def __post_init__(self):
-        self.valor_venda = int(randrange(100,300))
+        self.valor_venda = int(randrange(50,300))
         self.valor_aluguel = self.valor_venda*0.2
+
 
 @dataclass    
 class Match:
@@ -42,20 +50,10 @@ class Match:
     players: list[Player]
 
 
-    def roll_dice(self, player:dataclass):
-        steps = randint(0, 6)
-        casa_anterior = player.casa_atual
-        msg=player.andar_casas(steps)
-        print(
-            f'''{player.tipo}: 
-            dado: {steps} 
-            casa anterior:  {casa_anterior}
-            {msg if msg is not None else ''}
-            casa atual: {player.casa_atual}
-            
-            saldo: {player.saldo}
-            '''
-        )
+    def roll_dice(self):
+        steps = randint(1, 6)
+        return steps
+
 
     def transaction(self, player:dataclass, propriedade:dataclass):
         if propriedade.owner and propriedade.owner != player:
@@ -64,7 +62,9 @@ class Match:
         if player.saldo >= propriedade.valor_venda:
             player.pagar(propriedade.valor_venda)
             propriedade.owner = player
-            print(propriedade)
+            print(f"player {player.tipo} comprou a propriedade")    
+        
+        print(propriedade)
 
     def game_over(self, player:dataclass):
         if player.saldo <= 0:
@@ -83,8 +83,14 @@ class Match:
                 jogador: {player.tipo}
                 saldo: {player.saldo}            
                 '''
-
         return msg
 
+    def victory_announce(self, winner:Player, propriedades: list[Propriedade]):
+        print(f"------------------")
+        print(f"O GANHADOR É O {winner.tipo}")
+        print(f'''
+            saldo: {winner.saldo}
+            total de propriedades: {winner.prop_owned(propriedades)}
+            ''')
 
 
