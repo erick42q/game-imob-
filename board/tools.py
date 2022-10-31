@@ -1,4 +1,4 @@
-from config import verbose
+import config
 
 def winner(comportamentos):
     ganhador = ('', 0)
@@ -11,5 +11,5 @@ def winner(comportamentos):
     return ganhador
 
 def vprint(content:str):
-    if verbose:
+    if config.verbose:
         print(content)

@@ -1,1 +1,4 @@
-verbose=False
+# settings.py
+
+def init():
+    global verbose

@@ -5,12 +5,12 @@ from .match import Match
 from .ground import Ground
 from .tools import vprint
 
-def play(rounds=1000):
+def play(rounds=1000, casas=20):
 
 # criar propriedades
     grounds = []
 
-    for index in range(20):
+    for index in range(casas):
         grounds.append(Ground())
 
     # criar jogadores
