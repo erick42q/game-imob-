@@ -25,7 +25,7 @@ match = Match([ player for player in players])
 print(match.show_players())
 
 
-for id_round in range(100):
+for id_round in range(1000):
     print(f"-----------------")
     print(f"round: {id_round}")
 

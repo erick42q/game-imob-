@@ -110,7 +110,7 @@ def test_exigente_nao_compra_aluguel_49():
     assert prop1.owner == None
 
 
-def test_exigente_nao_compra_aluguel_51():
+def test_exigente_compra_aluguel_51():
     player = Player(0, "exigente")
     player.saldo = 300
     prop1 = Propriedade()
@@ -156,7 +156,9 @@ def test_checar_alguel():
     player2 = Player(1, "cauteloso")
     player2.saldo = 200
 
-    prop = Propriedade(200, 40)
+    prop = Propriedade()
+    prop.valor_venda = 200
+    prop.valor_aluguel = 40
     
 
     match = Match([ player1, player2 ])
