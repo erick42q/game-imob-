@@ -61,13 +61,14 @@ class Match:
         return msg
 
     def victory_announce(self, winner:Player, grounds: list[Ground]):
-        vprint("====================================================")
+        vprint("================================================================")
         vprint("TEMOS UM VENCEDOR \o/")
         vprint(f'{winner.tipo}:')
         vprint(f'''
             saldo: {winner.balance}
             total de propriedades: {winner.prop_owned(grounds)}
             ''')
+        vprint("================================================================\n")
 
     def timeout(self):    
         self._timeout = True
