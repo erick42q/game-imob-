@@ -18,10 +18,9 @@ class Player:
             self.casa_atual -= 20
             self.saldo += 100
             self.casa_atual += dado
-            return "Volta no tabuleiro!!!"
 
     def pagar(self, valor):
-        self.saldo -= valor
+        self.saldo = round(self.saldo - valor, 2)
 
     def prop_owned(self, propriedades: list):
         props = []
@@ -34,7 +33,7 @@ class Player:
     def buy_prop(self, propriedade: dataclass):
         self.pagar(propriedade.valor_venda)
         propriedade.owner = self
-        print(f"player {self.tipo} comprou a propriedade")    
+        print(f"            ## player {self.tipo} comprou a propriedade")    
         
 
 @dataclass
@@ -45,7 +44,7 @@ class Propriedade:
 
     def __post_init__(self):
         self.valor_venda = int(randrange(50,300))
-        self.valor_aluguel = self.valor_venda*0.2
+        self.valor_aluguel = round(self.valor_venda*0.2)
 
 
 @dataclass    
@@ -82,12 +81,11 @@ class Match:
                     print(f"{player.tipo} não quis comprar a propriedade")
 
 
-        print(propriedade)
 
     def game_over(self, player:dataclass):
         if player.saldo <= 0:
             self.players.remove(player)
-            print(f"player {player.tipo} não tem mais recursos e está fora do jogo")
+            print(f"O jogador {player.tipo} não tem mais recursos e está fora da partida\n")
 
     def winner(self):
         if len(self.players) == 1:
@@ -96,16 +94,15 @@ class Match:
 
     def show_players(self):
         msg = ''
+        print("Começando o game:\n")
         for player in self.players:
-            msg += f'''
-                jogador: {player.tipo}
-                saldo: {player.saldo}            
-                '''
+            msg += f"    jogador: {player.tipo}\n    saldo: {player.saldo}\n\n"
         return msg
 
     def victory_announce(self, winner:Player, propriedades: list[Propriedade]):
-        print(f"------------------")
-        print(f"O GANHADOR É O {winner.tipo}")
+        print("====================================================")
+        print("TEMOS UM VENCEDOR \o/")
+        print(f'{winner.tipo}:')
         print(f'''
             saldo: {winner.saldo}
             total de propriedades: {winner.prop_owned(propriedades)}

@@ -25,7 +25,7 @@ match = Match([ player for player in players])
 print(match.show_players())
 
 
-for id_round in range(1000):
+for id_round in range(100):
     print(f"-----------------")
     print(f"round: {id_round}")
 
@@ -34,22 +34,31 @@ for id_round in range(1000):
         propriedade = propriedades[player.casa_atual]
 
         steps = match.roll_dice()
+        print(f"----------------------------------------------------")
 
-        casa_anterior = player.casa_atual
+        print(
+            f'''\n{player.tipo}: \nid: {player.id} 
+            dado: {steps}
+             
+            casa:  {player.casa_atual}
+            saldo: {player.saldo}
+            propriedades: {player.prop_owned(propriedades)}
+            ''')
 
         msg=player.andar_casas(steps)
-        print(
-            f'''{player.tipo} id: {player.id}: 
-            dado: {steps} 
-            casa anterior:  {casa_anterior}
-            {msg if msg is not None else ''}
-            casa atual: {player.casa_atual}
-            propriedades: {player.prop_owned(propriedades)}
+        match.transaction(player, propriedade)
+
+        print(f'''            se movel para a casa: {player.casa_atual}
+            valor: {propriedade.valor_venda}
+            aluguel: {propriedade.valor_aluguel}
+            proprietário: {propriedade.owner.tipo if propriedade.owner else 'sem proprietário'}''')
+        
+        print(f'''
             saldo: {player.saldo}
+            propriedades: {player.prop_owned(propriedades)}
             '''
         )
 
-        match.transaction(player, propriedade)
         match.game_over(player)
         if match.winner():
             break
@@ -57,8 +66,6 @@ for id_round in range(1000):
     if match.winner():
         winner = match.players[0]
         match.victory_announce(winner, propriedades)
-
-
 
         break
 
