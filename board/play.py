@@ -3,6 +3,7 @@ from random import shuffle
 from .player import Player
 from .match import Match
 from .ground import Ground
+from .tools import vprint
 
 def play(rounds=1000):
 
@@ -24,20 +25,20 @@ def play(rounds=1000):
 
     match = Match([ player for player in players])
 
-    print(match.show_players())
+    vprint(match.show_players())
 
     for round in range(rounds):
-        print(f"-----------------")
-        print(f"round: {round}")
+        vprint(f"-----------------")
+        vprint(f"round: {round}")
 
 
         for player in match.players:
             propriedade = grounds[player.place]
 
             steps = match.roll_dice()
-            print(f"----------------------------------------------------")
+            vprint(f"----------------------------------------------------")
 
-            print(
+            vprint(
                 f'''\n{player.tipo}: \nid: {player.id} 
                 dado: {steps}
                 
@@ -49,12 +50,12 @@ def play(rounds=1000):
             msg=player.andar_casas(steps)
             match.transaction(player, propriedade)
 
-            print(f'''            se movel para a casa: {player.place}
+            vprint(f'''            se movel para a casa: {player.place}
                 valor: {propriedade.sale_value}
                 aluguel: {propriedade.rent_value}
                 proprietário: {propriedade.owner.tipo if propriedade.owner else 'sem proprietário'}''')
             
-            print(f'''
+            vprint(f'''
                 saldo: {player.balance}
                 propriedades: {player.prop_owned(grounds)}
                 '''
@@ -73,7 +74,7 @@ def play(rounds=1000):
     if not match.has_winner():
         match.timeout()
         match.victory_announce(match.winner, grounds)
-        print(f"timeout = {match._timeout}\n")
+        vprint(f"timeout = {match._timeout}\n")
     else:
         match.victory_announce(match.winner, grounds)
 

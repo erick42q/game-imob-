@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-
+from .tools import vprint
 
 @dataclass
 class Player:
@@ -31,6 +31,6 @@ class Player:
     def buy_prop(self, propriedade: dataclass):
         self.pagar(propriedade.sale_value)
         propriedade.owner = self
-        print(f"            ## player {self.tipo} comprou a propriedade")    
+        vprint(f"            ## player {self.tipo} comprou a propriedade")    
         
 

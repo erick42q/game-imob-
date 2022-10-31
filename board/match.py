@@ -2,6 +2,7 @@ from .player import  Player
 from .ground import  Ground
 from dataclasses import dataclass
 from random import  randint, getrandbits
+from .tools import vprint
 
 
 @dataclass    
@@ -37,14 +38,14 @@ class Match:
                     player.buy_prop(propriedade)
 
                 else:
-                    print(f"{player.tipo} não quis comprar a propriedade")
+                    vprint(f"{player.tipo} não quis comprar a propriedade")
 
 
 
     def game_over(self, player:dataclass):
         if player.balance <= 0:
             self.players.remove(player)
-            print(f"O jogador {player.tipo} não tem mais recursos e está fora da partida\n")
+            vprint(f"O jogador {player.tipo} não tem mais recursos e está fora da partida\n")
 
     def has_winner(self):
         if len(self.players) == 1:
@@ -54,16 +55,16 @@ class Match:
 
     def show_players(self):
         msg = ''
-        print("Começando o game:\n")
+        vprint("Começando o game:\n")
         for player in self.players:
             msg += f"    jogador: {player.tipo}\n    saldo: {player.balance}\n\n"
         return msg
 
     def victory_announce(self, winner:Player, grounds: list[Ground]):
-        print("====================================================")
-        print("TEMOS UM VENCEDOR \o/")
-        print(f'{winner.tipo}:')
-        print(f'''
+        vprint("====================================================")
+        vprint("TEMOS UM VENCEDOR \o/")
+        vprint(f'{winner.tipo}:')
+        vprint(f'''
             saldo: {winner.balance}
             total de propriedades: {winner.prop_owned(grounds)}
             ''')
