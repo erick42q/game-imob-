@@ -1,5 +1,7 @@
 import random
-from desafio.game import Player, Propriedade, Match
+from desafio.player import Player
+from desafio.match import Match
+from desafio.ground import Propriedade
 
 propriedades = []
 

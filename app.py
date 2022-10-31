@@ -1,7 +1,8 @@
-import random
-from cmath import polar
+from random import shuffle
 
-from desafio.game import Player, Match, Propriedade
+from desafio.player import Player
+from desafio.match import Match
+from desafio.ground import Propriedade
 
 # criar propriedades
 propriedades = []
@@ -17,14 +18,13 @@ players = [
     Player(3, "aleatório"),
 ]
 
-random.shuffle(players)
+shuffle(players)
 
 match = Match([ player for player in players])
 
 print(match.show_players())
 
-
-for id_round in range(10):
+for id_round in range(100):
     print(f"-----------------")
     print(f"round: {id_round}")
 
