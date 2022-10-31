@@ -69,10 +69,3 @@ for id_round in range(1000):
 
         break
 
-# radomisa ordem dos players
-# for player in players:
-#     round(player)
-
-
-
-

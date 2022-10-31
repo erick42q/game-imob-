@@ -51,7 +51,6 @@ class Match:
     
     players: list[Player]
 
-
     def roll_dice(self):
         steps = randint(1, 6)
         return steps
