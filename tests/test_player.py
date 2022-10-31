@@ -147,3 +147,25 @@ def test_cauteloso_nao_compra():
     match.transaction(player, prop1)
 
     assert prop1.owner == None
+
+
+def test_checar_alguel():
+    player1 = Player(0, "inpulsivo")
+    player1.saldo = 300
+    
+    player2 = Player(1, "cauteloso")
+    player1.saldo = 200
+
+    prop = Propriedade()
+    prop.valor_venda = 200
+    
+
+    match = Match([ player1, player2 ])
+
+    match.transaction(player1, prop)
+
+    match.transaction(player2, prop)
+
+    print(prop)
+
+    assert player2.saldo == 260
