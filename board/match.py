@@ -9,6 +9,8 @@ class Match:
     
     players: list[Player]
     winner: Player = None
+    timeout = False
+    rounds = int
 
     def roll_dice(self):
         steps = randint(1, 6)
@@ -67,7 +69,7 @@ class Match:
             ''')
 
     def timeout(self):    
-
+        self.timeout = True
         for player in self.players:
             if not self.winner:
                 self.winner = player
