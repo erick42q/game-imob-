@@ -1,71 +1,56 @@
-import math
-import random
-from cmath import polar
-
-from desafio.game import Player, Match, Propriedade
-
-# criar propriedades
-propriedades = []
-
-for index in range(20):
-    propriedades.append(Propriedade())
-
-# criar jogadores
-players = [
-    Player(0, "inpulsivo"),
-    Player(1, "exigente"),
-    Player(2, "cauteloso"),
-    Player(3, "aleatório"),
-]
-
-random.shuffle(players)
-
-match = Match([ player for player in players])
-
-print(match.show_players())
+from board.play import play
+from board.tools import winner
+import statistics
+import argparse
+import config
 
 
-for id_round in range(1000):
-    print(f"-----------------")
-    print(f"round: {id_round}")
+parser = argparse.ArgumentParser(prog="Bord")
+parser.add_argument('-v', '--verbose',action='store_true') 
+args = parser.parse_args()
 
 
-    for player in match.players:
-        propriedade = propriedades[player.casa_atual]
 
-        steps = match.roll_dice()
-        print(f"----------------------------------------------------")
+def main():
+    
+    print(f"Olá, o game está rolando 😁")
+    print(f"Caso queira ter uma visão de tudo o que está acontecendo, basta rodar o comando com o -v ou --verbose\n")
 
-        print(
-            f'''\n{player.tipo}: \nid: {player.id} 
-            dado: {steps}
-             
-            casa:  {player.casa_atual}
-            saldo: {player.saldo}
-            propriedades: {player.prop_owned(propriedades)}
-            ''')
 
-        msg=player.andar_casas(steps)
-        match.transaction(player, propriedade)
+    config.verbose = args.verbose
 
-        print(f'''            se movel para a casa: {player.casa_atual}
-            valor: {propriedade.valor_venda}
-            aluguel: {propriedade.valor_aluguel}
-            proprietário: {propriedade.owner.tipo if propriedade.owner else 'sem proprietário'}''')
-        
-        print(f'''
-            saldo: {player.saldo}
-            propriedades: {player.prop_owned(propriedades)}
-            '''
-        )
+    timeout = 0
+    rounds = []
+    comportamentos = {
+    }
+    percents = {
 
-        match.game_over(player)
-        if match.winner():
-            break
+    }
 
-    if match.winner():
-        winner = match.players[0]
-        match.victory_announce(winner, propriedades)
+    for index in range(300):
+        hist = play(1000)
 
-        break
+        if hist['timeout']:
+            timeout += 1    
 
+        rounds.append(hist['rounds'])
+
+        if hist['comportamento'] not in comportamentos:
+            comportamentos[hist['comportamento']] = 1    
+        else:
+            comportamentos[hist['comportamento']] += 1
+
+    total = sum(comportamentos.values())
+
+    for key, value in comportamentos.items():
+        percents[key] = "{:.2f}%".format(value*100/total)
+
+
+    print(f"Total de timeouts: {timeout}")
+    print(f"Media de rounds: {round(statistics.fmean(rounds))}")
+    print(f"Porcentagem de vitorias: {percents}")
+    print(f"Comportamento que mais vence: {winner(comportamentos)[0]}\n")
+
+
+if __name__ == "__main__":
+    main()
