@@ -1,5 +1,5 @@
 from .player import  Player
-from .ground import  Propriedade
+from .ground import  Ground
 from dataclasses import dataclass
 from random import  randint, getrandbits
 
@@ -17,17 +17,17 @@ class Match:
 
     def transaction(self, player:dataclass, propriedade:dataclass):
         if propriedade.owner and propriedade.owner != player:
-            player.pagar(propriedade.valor_aluguel)
+            player.pagar(propriedade.rent_value)
             return
         
-        if player.saldo >= propriedade.valor_venda:
+        if player.balance >= propriedade.sale_value:
             if player.tipo == 'inpulsivo':
                 player.buy_prop(propriedade)
 
-            elif player.tipo == 'exigente' and propriedade.valor_aluguel > 50:
+            elif player.tipo == 'exigente' and propriedade.rent_value > 50:
                 player.buy_prop(propriedade)
                 
-            elif player.tipo == 'cauteloso' and (player.saldo - propriedade.valor_venda) >= 80 :
+            elif player.tipo == 'cauteloso' and (player.balance - propriedade.sale_value) >= 80 :
                 player.buy_prop(propriedade)
 
             elif player.tipo == 'aleatório':
@@ -40,7 +40,7 @@ class Match:
 
 
     def game_over(self, player:dataclass):
-        if player.saldo <= 0:
+        if player.balance <= 0:
             self.players.remove(player)
             print(f"O jogador {player.tipo} não tem mais recursos e está fora da partida\n")
 
@@ -54,16 +54,16 @@ class Match:
         msg = ''
         print("Começando o game:\n")
         for player in self.players:
-            msg += f"    jogador: {player.tipo}\n    saldo: {player.saldo}\n\n"
+            msg += f"    jogador: {player.tipo}\n    saldo: {player.balance}\n\n"
         return msg
 
-    def victory_announce(self, winner:Player, propriedades: list[Propriedade]):
+    def victory_announce(self, winner:Player, grounds: list[Ground]):
         print("====================================================")
         print("TEMOS UM VENCEDOR \o/")
         print(f'{winner.tipo}:')
         print(f'''
-            saldo: {winner.saldo}
-            total de propriedades: {winner.prop_owned(propriedades)}
+            saldo: {winner.balance}
+            total de propriedades: {winner.prop_owned(grounds)}
             ''')
 
     def timeout(self):    
@@ -71,6 +71,6 @@ class Match:
         for player in self.players:
             if not self.winner:
                 self.winner = player
-            if self.winner.saldo < player.saldo:
+            if self.winner.balance < player.balance:
                 self.winner = player
 

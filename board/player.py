@@ -5,31 +5,31 @@ from dataclasses import dataclass
 class Player:
     id: int
     tipo: str
-    casa_atual: int = 0
-    saldo: int = 100
+    place: int = 0
+    balance: int = 100
 
     def andar_casas(self, dado):
         
-        if self.casa_atual+dado <= 19:
-            self.casa_atual += dado
+        if self.place+dado <= 19:
+            self.place += dado
         else:
-            self.casa_atual -= 20
-            self.saldo += 100
-            self.casa_atual += dado
+            self.place -= 20
+            self.balance += 100
+            self.place += dado
 
     def pagar(self, valor):
-        self.saldo = round(self.saldo - valor, 2)
+        self.balance = round(self.balance - valor, 2)
 
-    def prop_owned(self, propriedades: list):
+    def prop_owned(self, grounds: list):
         props = []
-        for count, prop in enumerate(propriedades):
+        for count, prop in enumerate(grounds):
             if prop.owner == self:
                 props.append(count)
         
         return props
 
     def buy_prop(self, propriedade: dataclass):
-        self.pagar(propriedade.valor_venda)
+        self.pagar(propriedade.sale_value)
         propriedade.owner = self
         print(f"            ## player {self.tipo} comprou a propriedade")    
         

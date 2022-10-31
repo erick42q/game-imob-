@@ -1,14 +1,14 @@
 from random import shuffle
 
-from desafio.player import Player
-from desafio.match import Match
-from desafio.ground import Propriedade
+from board.player import Player
+from board.match import Match
+from board.ground import Ground
 
 # criar propriedades
-propriedades = []
+grounds = []
 
 for index in range(20):
-    propriedades.append(Propriedade())
+    grounds.append(Ground())
 
 # criar jogadores
 players = [
@@ -30,7 +30,7 @@ for id_round in range(100):
 
 
     for player in match.players:
-        propriedade = propriedades[player.casa_atual]
+        propriedade = grounds[player.place]
 
         steps = match.roll_dice()
         print(f"----------------------------------------------------")
@@ -39,22 +39,22 @@ for id_round in range(100):
             f'''\n{player.tipo}: \nid: {player.id} 
             dado: {steps}
              
-            casa:  {player.casa_atual}
-            saldo: {player.saldo}
-            propriedades: {player.prop_owned(propriedades)}
+            casa:  {player.place}
+            saldo: {player.balance}
+            propriedades: {player.prop_owned(grounds)}
             ''')
 
         msg=player.andar_casas(steps)
         match.transaction(player, propriedade)
 
-        print(f'''            se movel para a casa: {player.casa_atual}
-            valor: {propriedade.valor_venda}
-            aluguel: {propriedade.valor_aluguel}
+        print(f'''            se movel para a casa: {player.place}
+            valor: {propriedade.sale_value}
+            aluguel: {propriedade.rent_value}
             proprietário: {propriedade.owner.tipo if propriedade.owner else 'sem proprietário'}''')
         
         print(f'''
-            saldo: {player.saldo}
-            propriedades: {player.prop_owned(propriedades)}
+            saldo: {player.balance}
+            propriedades: {player.prop_owned(grounds)}
             '''
         )
 
@@ -68,8 +68,8 @@ for id_round in range(100):
 
 if not match.has_winner():
     match.timeout()
-    match.victory_announce(match.winner, propriedades)
+    match.victory_announce(match.winner, grounds)
 else:
-    match.victory_announce(match.winner, propriedades)
+    match.victory_announce(match.winner, grounds)
 
 
