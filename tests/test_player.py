@@ -154,10 +154,9 @@ def test_checar_alguel():
     player1.saldo = 300
     
     player2 = Player(1, "cauteloso")
-    player1.saldo = 200
+    player2.saldo = 200
 
-    prop = Propriedade()
-    prop.valor_venda = 200
+    prop = Propriedade(200, 40)
     
 
     match = Match([ player1, player2 ])
@@ -168,4 +167,4 @@ def test_checar_alguel():
 
     print(prop)
 
-    assert player2.saldo == 260
+    assert player2.saldo == 160

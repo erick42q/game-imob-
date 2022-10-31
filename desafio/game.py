@@ -38,13 +38,9 @@ class Player:
 
 @dataclass
 class Propriedade:
-    valor_venda: int = field(init=False)
-    valor_aluguel: float = field(init=False)
+    valor_venda: int = int(randrange(50,300))
+    valor_aluguel: int = int(valor_venda*0.2)
     owner: Player = None
-
-    def __post_init__(self):
-        self.valor_venda = int(randrange(50,300))
-        self.valor_aluguel = round(self.valor_venda*0.2)
 
 
 @dataclass    
