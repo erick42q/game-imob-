@@ -7,9 +7,12 @@ def main():
     rounds = []
     comportamentos = {
     }
+    percents = {
 
-    for index in range(50):
-        hist = play(100)
+    }
+
+    for index in range(300):
+        hist = play(1000)
 
         if hist['timeout']:
             timeout += 1    
@@ -17,15 +20,21 @@ def main():
         rounds.append(hist['rounds'])
 
         if hist['comportamento'] not in comportamentos:
-            comportamentos[hist['comportamento']] = 0    
+            comportamentos[hist['comportamento']] = 1    
         else:
             comportamentos[hist['comportamento']] += 1
 
+    total = sum(comportamentos.values())
 
-    print(timeout)
-    print(statistics.fmean(rounds))
-    print(comportamentos)
-    print(winner(comportamentos)[0])
+    for key, value in comportamentos.items():
+        percents[key] = "{:.2f}%".format(value*100/total)
+
+
+
+    print(f"total de timeouts: {timeout}")
+    print(f"media de rounds: {round(statistics.fmean(rounds))}")
+    print(f"porcentagem de vitorias: {percents}")
+    print(f"comportamento que mais vence: {winner(comportamentos)[0]}")
 
 
 if __name__ == "__main__":
