@@ -50,6 +50,7 @@ class Propriedade:
 class Match:
     
     players: list[Player]
+    winner: Player = None
 
     def roll_dice(self):
         steps = randint(1, 6)
@@ -85,8 +86,9 @@ class Match:
             self.players.remove(player)
             print(f"O jogador {player.tipo} não tem mais recursos e está fora da partida\n")
 
-    def winner(self):
+    def has_winner(self):
         if len(self.players) == 1:
+            self.winner = self.players[0]
             return True
         return False
 
@@ -106,4 +108,10 @@ class Match:
             total de propriedades: {winner.prop_owned(propriedades)}
             ''')
 
+    def timeout(self):    
 
+        for player in self.players:
+            if not self.winner:
+                self.winner = player
+            if self.winner.saldo < player.saldo:
+                self.winner = player

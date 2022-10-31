@@ -1,3 +1,4 @@
+import random
 from desafio.game import Player, Propriedade, Match
 
 propriedades = []
@@ -5,6 +6,23 @@ propriedades = []
 for index in range(20):
     propriedades.append(Propriedade())
 
+
+def test_match_random_players_order():
+    players = [
+        Player(0, "inpulsivo"),
+        Player(1, "exigente"),
+        Player(2, "cauteloso"),
+        Player(3, "aleatório"),
+    ]
+
+    random.shuffle(players)
+    match = Match([ player for player in players ])
+    random.shuffle(players)
+    match2 = Match([ player for player in players ])
+    random.shuffle(players)
+    match3 = Match([ player for player in players ])
+
+    assert match.players[0].id != match2.players[0].id or match.players[0].id != match3.players[0].id
 
 def test_criação_de_player():
     p = Player(0, "inpulsivo")

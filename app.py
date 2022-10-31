@@ -1,4 +1,3 @@
-import math
 import random
 from cmath import polar
 
@@ -25,7 +24,7 @@ match = Match([ player for player in players])
 print(match.show_players())
 
 
-for id_round in range(1000):
+for id_round in range(10):
     print(f"-----------------")
     print(f"round: {id_round}")
 
@@ -60,12 +59,17 @@ for id_round in range(1000):
         )
 
         match.game_over(player)
-        if match.winner():
+
+        if match.has_winner():
             break
 
-    if match.winner():
-        winner = match.players[0]
-        match.victory_announce(winner, propriedades)
-
+    if match.has_winner():
         break
+
+if not match.has_winner():
+    match.timeout()
+    match.victory_announce(match.winner, propriedades)
+else:
+    match.victory_announce(match.winner, propriedades)
+
 
