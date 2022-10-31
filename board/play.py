@@ -73,6 +73,12 @@ def play(rounds=1000):
     if not match.has_winner():
         match.timeout()
         match.victory_announce(match.winner, grounds)
-        print(f"timeout = {match.timeout}\n")
+        print(f"timeout = {match._timeout}\n")
     else:
         match.victory_announce(match.winner, grounds)
+
+    return {
+            "timeout": match._timeout,
+            "rounds": match.rounds,
+            "comportamento": match.winner.tipo
+        }

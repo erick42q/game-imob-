@@ -9,7 +9,7 @@ class Match:
     
     players: list[Player]
     winner: Player = None
-    timeout = False
+    _timeout = False
     rounds = int
 
     def roll_dice(self):
@@ -69,7 +69,7 @@ class Match:
             ''')
 
     def timeout(self):    
-        self.timeout = True
+        self._timeout = True
         for player in self.players:
             if not self.winner:
                 self.winner = player

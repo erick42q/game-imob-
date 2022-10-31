@@ -1,4 +1,4 @@
 from board.play import play
 
 
-play(1000)
+print(play(100))
