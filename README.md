@@ -1,6 +1,6 @@
 python 3.10
 
-Sobre o game:
+## Sobre o game:
 
 Jogo semelhante a Banco Imobiliário quer roda de forma automática, com a 
 finalidade de retornar alguns tados para analise de estrategia no game. 
