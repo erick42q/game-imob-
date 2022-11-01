@@ -11,5 +11,8 @@ def winner(comportamentos):
     return ganhador
 
 def vprint(content:str):
-    if config.verbose:
-        print(content)
+    try:
+        if config.verbose:
+            print(content)
+    except:
+        ...

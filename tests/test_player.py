@@ -3,10 +3,15 @@ from board.player import Player
 from board.match import Match
 from board.ground import Ground
 
+import pytest
+pytest.verbose = False
+
 grounds = []
 
 for index in range(20):
     grounds.append(Ground())
+
+
 
 
 def test_match_random_players_order():
