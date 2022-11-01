@@ -1,22 +1,24 @@
 python 3.10
 
+Sobre o game:
+
 Jogo semelhante a Banco Imobiliário quer roda de forma automática, com a 
 finalidade de retornar alguns tados para analise de estrategia no game. 
 
 
-###Instalar e ativar o virtualenv:
+### Instalar e ativar o virtualenv:
 ```
 python3.10 -m venv venv
 
 source ./venv/bin/activate
 ```
 
-### instalar dependências:
+### Instalar dependências:
 ```
 pip install -r requirements.txt
 ```
 
-###rodar projeto:
+### Rodar projeto:
 ```
 python app.py
 ```
