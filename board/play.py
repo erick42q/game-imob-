@@ -52,7 +52,7 @@ def play(rounds=1000, casas=20):
             match.transaction(player, propriedade)
 
             vprint(
-                f"""            se movel para a casa: {player.place}
+                f"""                se movel para a casa: {player.place}
                 valor: {propriedade.sale_value}
                 aluguel: {propriedade.rent_value}
                 proprietário: {propriedade.owner.tipo if propriedade.owner else 'sem proprietário'}"""

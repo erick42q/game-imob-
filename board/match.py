@@ -37,7 +37,7 @@ class Match:
                     player.buy_prop(propriedade)
 
                 else:
-                    vprint(f'{player.tipo} não quis comprar a propriedade')
+                    vprint(f'           ###{player.tipo} não quis comprar a propriedade')
 
     def game_over(self, player: dataclass):
         if player.balance <= 0:
