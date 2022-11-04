@@ -3,7 +3,11 @@ python 3.10
 Sobre o game:
 
 Jogo semelhante a Banco Imobiliário quer roda de forma automática, com a 
+<<<<<<< HEAD
 finalidade de retornar alguns dados para análise de estratégia no game. 
+=======
+finalidade de retornar alguns dados para anélise de estratégia no game. 
+>>>>>>> aa5b2d6331fa367b925036050f20bbec1bfc4620
 
 
 ### Instalar e ativar o virtualenv:
@@ -34,5 +38,3 @@ Assim que começar a rodar, serão criado 4 players, cada player inicia com $100
 Vence quem tiver mais saldo ao longo de 1000 rounds ou quem for o único restante com saldo ao longo da partida.
 
 Por fim é feito uma análise rodando o jogo 300 partidas (1000 rounds em casa) para retornar o total de partidas que termina em timeout, a media do total de rounds em uma partida, a porcentagem de vitorias por condição do jogador e o comportamento do jogador que mais vence.
-
-    
