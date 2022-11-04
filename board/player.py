@@ -1,6 +1,7 @@
 from dataclasses import dataclass
 from .tools import vprint
 
+
 @dataclass
 class Player:
     id: int
@@ -9,8 +10,8 @@ class Player:
     balance: int = 100
 
     def andar_casas(self, dado):
-        
-        if self.place+dado <= 19:
+
+        if self.place + dado <= 19:
             self.place += dado
         else:
             self.place -= 20
@@ -25,12 +26,10 @@ class Player:
         for count, prop in enumerate(grounds):
             if prop.owner == self:
                 props.append(count)
-        
+
         return props
 
     def buy_prop(self, propriedade: dataclass):
         self.pagar(propriedade.sale_value)
         propriedade.owner = self
-        vprint(f"            ## player {self.tipo} comprou a propriedade")    
-        
-
+        vprint(f'            ## player {self.tipo} comprou a propriedade')

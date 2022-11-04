@@ -1,5 +1,6 @@
 import config
 
+
 def winner(comportamentos):
     ganhador = ('', 0)
     for key, value in comportamentos.items():
@@ -10,7 +11,8 @@ def winner(comportamentos):
 
     return ganhador
 
-def vprint(content:str):
+
+def vprint(content: str):
     try:
         if config.verbose:
             print(content)
